@@ -30,7 +30,6 @@ module.exports = React.createClass({
         console.log(this.state);
         return(
             <div id='part-create'>
-
                 <h1>
                     {this.state.edit?'Edit':'New'} Part
                 </h1>

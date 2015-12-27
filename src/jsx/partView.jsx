@@ -2,53 +2,32 @@ import React from 'react';
 import PartForm from 'partForm';
 import {Button} from 'react-bootstrap';
 
+import PartViewStore from 'partViewStore';
+
 module.exports = React.createClass({
     getInitialState: function() {
         return {
-            data: {
-                name: 'Name',
-                desc: 'Desc',
-                id: 'ID',
-                qty: 'QTY',
-                cots: true,
-                type: 'assembly',
-                status: 'Status',
-                parent: ''
-            },
-            hasData: false,
-            edit: false
+            data: PartViewStore.getPartData(),
+            visible: PartViewStore.getVisible()
         };
     },
     componentWillMount: function() {
-        this.firebase = new Firebase('https://mvrt-engdoc.firebaseio.com/parts').child(this.props.part);
-        this.firebase.on('value', function (snapshot) {
-            var data = snapshot.val();
-            this.setState({ data:data, hasData:true });
-
-        }.bind(this));
+        PartViewStore.addChangeListener(this.updateState);
     },
     render: function(){
-        var edit;
-        if(this.state.edit && this.state.hasData){
-            edit = <PartForm
-                uid={this.props.part}
-                data={this.state.data}/>
-        }
-        return(
-            <div id='part-view'>
 
-                <h3>
-                    {this.state.data.name}
-                    <small>{this.state.data.id} | {this.state.data.desc}</small>
-                </h3>
-
-                <p>{this.state.data.cots?'COTS':'Custom'} {this.state.data.type}</p>
-                <p>{this.props.part}</p>
-                <p>QTY: {this.state.data.qty}</p>
-                <p>Parent: {this.state.data.parent}</p>
-
-                {edit}
+        if(this.state.visible)return(
+            <div id='part-view' style={{padding:'20px'}}>
+                <h3>{this.state.data.name}&nbsp;<small>{this.state.data.id}</small></h3>
+                <h4>{this.state.data.desc}&nbsp;<small>{this.state.data.cots?'COTS':'Fabricated'}&nbsp;{this.state.data.type}</small></h4>
+                <h5><small>Status</small>&nbsp;{this.state.data.status}</h5>
+                <h5><small>Quantity</small>&nbsp;{this.state.data.qty}</h5>
+                <h5><small>Parent</small>&nbsp;{this.state.data.parent}</h5>
             </div>
         );
+        else return(<div></div>);
+    },
+    updateState: function(){
+        this.setState({data:PartViewStore.getPartData(), visible: PartViewStore.getVisible()});
     }
 });

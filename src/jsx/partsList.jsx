@@ -1,17 +1,21 @@
 import React from 'react';
 import Firebase from 'firebase';
 
+import {NavStore, NavItemStore, NavListStore} from 'navStore';
+import NavActionCreator from 'navActionCreators';
+import PartListStore from 'partListStore';
+
 import {Table, Input} from 'react-bootstrap';
 
 module.exports = React.createClass({
-    parts: [],
     getInitialState: function(){
         return {
-            parts: [],
+            parts: PartListStore.getPartList(),
+            visible: PartListStore.getVisible()
         }
     },
     render: function(){
-        return(
+        if(this.state.visible)return(
             <div>
                 <Table hover responsive>
                     <thead>
@@ -29,7 +33,7 @@ module.exports = React.createClass({
                     <tbody>
                         { this.state.parts.map(function(part){
                             return (
-                                <tr key={part.key}>
+                                <tr key={part.key} onClick={this.selectItem.bind(this, part.key)}>
                                     <td>{part.name}</td>
                                     <td>{part.desc}</td>
                                     <td>{part.id}</td>
@@ -40,30 +44,24 @@ module.exports = React.createClass({
                                     <td>{part.status}</td>
                                 </tr>
                             )
-                        })}
+                        }.bind(this))}
                     </tbody>
                 </Table>
             </div>
-        )
+        );
+        else return(<div></div>);
     },
     componentWillMount: function(){
-        this.firebase = new Firebase('https://mvrt-engdoc.firebaseio.com/parts');
-        this.loadParts();
-    },
-    loadParts: function(){
-        console.log('do not filter parent');
-        this.filter = this.firebase;
-        this.filter.on('child_added', this.addPart);
-    },
-    addPart: function(snapshot){
-        var data = snapshot.val();
-        data.key = snapshot.key();
-        this.parts.push(data);
-        //SORTING HAPPENS HERE | sample sort:
-        //this.parts.sort(function(a,b) {return (a.qty - b.qty); } );
-        this.updateState();
+        PartListStore.addChangeListener(this.updateState);
+        this.testFlux();
     },
     updateState: function(){
-        this.setState({parts:this.parts});
+        this.setState({parts:PartListStore.getPartList(), visible:PartListStore.getVisible()});
+    },
+    testFlux: function(){
+        NavActionCreator.setCurrentItem('');
+    },
+    selectItem: function(item){
+        NavActionCreator.setCurrentItem(item);
     }
 });
