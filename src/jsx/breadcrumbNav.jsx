@@ -1,5 +1,4 @@
 import React from 'react';
-import PartForm from 'partForm';
 import {Breadcrumb, BreadcrumbItem} from 'react-bootstrap';
 
 import {NavListStore} from 'navStore';
@@ -29,7 +28,6 @@ var BreadcrumbNav = React.createClass({
     },
     updateState: function(){
         this.setState({list: NavListStore.getNavList()});
-        console.log(NavListStore.getNavList());
     }
 });
 

@@ -27,39 +27,14 @@ var PartListItem = React.createClass({
     render: function() {
         return (
             <tr>
-
-                <td>
-                    {this.state.data.name}
-                </td>
-
-                <td>
-                    {this.state.data.desc}
-                </td>
-
-                <td>
-                    {this.state.data.id}
-                </td>
-
-                <td>
-                    {this.state.data.qty}
-                </td>
-
-                <td>
-                    {this.state.data.cots?'yes':'no'}
-                </td>
-
-                <td>
-                    {this.state.data.type}
-                </td>
-
-                <td>
-                    {this.state.data.parent || 'None' }
-                </td>
-
-                <td>
-                    {this.state.data.status}
-                </td>
-
+                <td>{this.state.data.name}</td>
+                <td>{this.state.data.desc}</td>
+                <td>{this.state.data.id}</td>
+                <td>{this.state.data.qty}</td>
+                <td>{this.state.data.cots?'yes':'no'}</td>
+                <td>{this.state.data.type}</td>
+                <td>{this.state.data.parent || 'None' }</td>
+                <td>{this.state.data.status}</td>
             </tr>
         );
     }
@@ -69,27 +44,16 @@ var PartListHeader = React.createClass({
     render: function() {
         return(
             <thead>
-
                 <tr>
-
                     <th>Name</th>
-
                     <th>Description</th>
-
                     <th>ID</th>
-
                     <th>Quantity</th>
-
                     <th>COTS?</th>
-
                     <th>Type</th>
-
                     <th>Parent</th>
-
                     <th>Status</th>
-
                 </tr>
-
             </thead>
         );
     }
@@ -115,20 +79,14 @@ var PartList = React.createClass({
     render: function() {
         return (
             <div className='parts-list'>
-
                 <Table responsive>
-
                     <PartListHeader/>
-
                     <tbody>
-
                         { this.state.parts.map(function(part){
                             return <PartListItem uid={part} key={part} />
                         })}
                     </tbody>
-
                 </Table>
-
             </div>
         );
     }

@@ -1,6 +1,9 @@
 var express = require('express');
 var app = express();
 
+this.index = 'mvrt-engdoc';
+this.type = 'part';
+
 app.use(express.static('node_modules'));
 app.use('/', express.static('dist'));
 app.use('/lib/bootstrap', express.static('node_modules/bootstrap/dist'));

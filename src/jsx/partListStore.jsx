@@ -25,7 +25,7 @@ var PartListStore = assign({}, EventEmitter.prototype, {
     },
 
     removeChangeListener: function(callback){
-        this.removeChangeListener(CHANGE_EVENT, callback);
+        this.removeListener(CHANGE_EVENT, callback);
     },
 
     getPartList: function(){
@@ -44,7 +44,7 @@ var PartListStore = assign({}, EventEmitter.prototype, {
          _visible = true;
         var context = NavStore.getCurrentItem();
 
-        if(details.type === 'part'){
+        if(details.type === 'stock'){
             _visible = false;
             context = details.parent;
         }
@@ -54,8 +54,6 @@ var PartListStore = assign({}, EventEmitter.prototype, {
         }else{
             _currentQuery = firebase;
         }
-
-        console.log(_currentQuery.toString());
 
         _currentQuery.on('child_added', function(snap){
             var data = snap.val();

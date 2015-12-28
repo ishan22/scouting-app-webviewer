@@ -5,6 +5,8 @@ import {NavStore, NavItemStore, NavListStore} from 'navStore';
 import NavActionCreator from 'navActionCreators';
 import PartListStore from 'partListStore';
 
+import NewPart from 'newPart';
+
 import {Table, Input} from 'react-bootstrap';
 
 module.exports = React.createClass({
@@ -23,7 +25,6 @@ module.exports = React.createClass({
                             <th>Name</th>
                             <th>Description</th>
                             <th>ID</th>
-                            <th>COTS?</th>
                             <th>Type</th>
                             <th>Quantity</th>
                             <th>Parent</th>
@@ -37,7 +38,6 @@ module.exports = React.createClass({
                                     <td>{part.name}</td>
                                     <td>{part.desc}</td>
                                     <td>{part.id}</td>
-                                    <td>{part.cots?'Yes':'No'}</td>
                                     <td>{part.type}</td>
                                     <td>{part.qty}</td>
                                     <td>{part.parent||'None'}</td>
@@ -47,6 +47,7 @@ module.exports = React.createClass({
                         }.bind(this))}
                     </tbody>
                 </Table>
+                <NewPart/>
             </div>
         );
         else return(<div></div>);
@@ -54,6 +55,9 @@ module.exports = React.createClass({
     componentWillMount: function(){
         PartListStore.addChangeListener(this.updateState);
         this.testFlux();
+    },
+    componentWillUnmount: function(){
+        PartListStore.removeChangeListener(this.updateState);
     },
     updateState: function(){
         this.setState({parts:PartListStore.getPartList(), visible:PartListStore.getVisible()});

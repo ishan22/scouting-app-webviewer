@@ -11,7 +11,6 @@ import {NavStore, NavItemStore} from 'navStore';
 var CHANGE_EVENT = 'change';
 
 var _partData = {};
-var _isPart = false;
 var _visible = false;
 var _currentQuery = null;
 
@@ -26,7 +25,7 @@ var PartViewStore = assign({}, EventEmitter.prototype, {
     },
 
     removeChangeListener: function(callback){
-        this.removeChangeListener(CHANGE_EVENT, callback);
+        this.removeListener(CHANGE_EVENT, callback);
     },
 
     getPartData: function(){
@@ -37,18 +36,13 @@ var PartViewStore = assign({}, EventEmitter.prototype, {
         return _visible;
     },
 
-    isPart: function(){
-        return _isPart;
-    },
-
     _setCurrentItem: function(){
         if(_currentQuery)_currentQuery.off();
         _partData = {};
 
         var details = NavItemStore.getDetails();
-        _isPart = details.type === 'part';
 
-        if(!details.type){
+        if(!details.type || details.type === 'location'){
             _visible = false;
             this.emitChange();
             return;

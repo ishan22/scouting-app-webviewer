@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "bootstrap": "^3.3.5",
+    "elasticsearchclient": "^0.5.3",
     "express": "^4.13.3",
     "flux": "^2.1.1"
   },

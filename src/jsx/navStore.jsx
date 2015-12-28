@@ -22,7 +22,7 @@ var NavStore = assign({}, EventEmitter.prototype, {
     },
 
     removeChangeListener: function(callback){
-        this.removeChangeListener(CHANGE_EVENT, callback);
+        this.removeListener(CHANGE_EVENT, callback);
     },
 
     getCurrentItem: function(){
@@ -51,7 +51,7 @@ var NavListStore = assign({}, EventEmitter.prototype, {
     },
 
     removeChangeListener: function(callback){
-        this.removeChangeListener(CHANGE_EVENT, callback);
+        this.removeListener(CHANGE_EVENT, callback);
     },
 
     getNavList: function(){
@@ -97,7 +97,7 @@ var NavItemStore = assign({}, EventEmitter.prototype, {
     },
 
     removeChangeListener: function(callback){
-        this.removeChangeListener(CHANGE_EVENT, callback);
+        this.removeListener(CHANGE_EVENT, callback);
     },
 
     _loadDetails: function(){
@@ -108,13 +108,14 @@ var NavItemStore = assign({}, EventEmitter.prototype, {
                     _currentType = snap.val().type;
                 }else{
                     _currentParent = '';
-                    _currentType = '';
+                    _currentType = 'location';
                 }
                 this.emitChange();
             }.bind(this));
         }else{
             _currentParent = '';
             _currentItem = '';
+            _currentType = 'location';
             this.emitChange();
         }
     },
