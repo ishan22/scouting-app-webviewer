@@ -3,7 +3,7 @@ import assign from 'object-assign';
 import {ActionTypes} from 'appConstants';
 import Firebase from 'firebase';
 
-var firebase = new Firebase('https://mvrt-engdoc.firebaseio.com/parts');
+var firebase = new Firebase('https://teamdata.firebaseio.com/teams/');
 
 import AppDispatcher from 'appDispatcher';
 

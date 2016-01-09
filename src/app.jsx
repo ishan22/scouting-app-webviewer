@@ -1,15 +1,12 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 
-import PartsList from 'partsList';
-import PartView from 'partView';
-import BreadcrumbNav from 'breadcrumbNav';
+import TeamView from 'teamView';
+import TeamList from 'teamViewList';
 
 ReactDOM.render(
     <div>
-        <BreadcrumbNav/>
-        <PartView/>
-        <PartsList/>
+        <TeamList />
     </div>,
   document.getElementById('app')
 );

@@ -5,9 +5,8 @@ module.exports = {
 
     setCurrentItem: function(item){
         AppDispatcher.dispatch({
-            type: ActionTypes.NAV_SET_ITEM,
+            type: 'NAV_SET_ITEM',
             item: item
         })
     }
-
-}
+};

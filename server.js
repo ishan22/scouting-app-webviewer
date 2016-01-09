@@ -1,7 +1,7 @@
 var express = require('express');
 var app = express();
 
-this.index = 'mvrt-engdoc';
+this.index = 'mvrt-scoutviewer';
 this.type = 'part';
 
 app.use(express.static('node_modules'));
