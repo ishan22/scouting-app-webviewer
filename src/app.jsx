@@ -6,7 +6,7 @@ import TeamList from 'teamViewList';
 
 ReactDOM.render(
     <div>
-        <TeamList />
+        <App />
     </div>,
   document.getElementById('app')
 );

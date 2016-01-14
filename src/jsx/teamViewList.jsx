@@ -1,8 +1,9 @@
 import {EventEmitter} from 'events';
 import assign from 'object-assign';
 import { Table } from 'react-bootstrap';
-import NavActionCreator from 'navActionCreator';
+import NavActionCreator from 'navActionCreators';
 import TeamView from 'teamView';
+import { Router, Route, Link } from 'react-router';
 
 var React = require('react');
 var Firebase = require('firebase');
@@ -13,7 +14,7 @@ var ListComponent = React.createClass({
 
   render: function() {
     var createItem = function(item) {
-      return <tr key={item.nick}>
+      return <tr Link to="/team" key={item.nick}>
         <td>{item.nick}</td>
         <td>{item.number}</td>
       </tr>
@@ -49,7 +50,7 @@ var TeamList = React.createClass({
       </div>
     );
   },
-
+    
   componentWillMount: function() {
     firebaseRef.on("child_added", function(dataSnapshot) {
       this.state.items.push(dataSnapshot.val());
@@ -64,5 +65,13 @@ var TeamList = React.createClass({
   }
 
 });
+
+render((
+  <Router>
+    <Route path="/" component={App}>
+      <Route path="team:/id" component={TeamView} />
+    </Route>
+  </Router>
+), document.body)
 
 module.exports = TeamList;

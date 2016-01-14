@@ -16,6 +16,11 @@ module.exports = React.createClass({
         <h3>{this.props.data}</h3>
       </div>
     );
+  },
+    
+  componentDidMount() {
+   // from the path `/inbox/messages/:id`
+   const id = this.props.params.id
   }
 
 });

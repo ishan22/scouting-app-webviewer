@@ -1,5 +1,4 @@
 import AppDispatcher from 'appDispatcher';
-import {ActionTypes} from 'appConstants';
 
 module.exports = {
 
