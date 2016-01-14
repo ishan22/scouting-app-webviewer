@@ -17,9 +17,8 @@ module.exports = React.createClass({
       </div>
     );
   },
-    
+
   componentDidMount() {
-   // from the path `/inbox/messages/:id`
    const id = this.props.params.id
   }
 
