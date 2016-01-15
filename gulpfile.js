@@ -8,7 +8,7 @@ var browserSync = require('browser-sync');
 var supervisor = require('gulp-supervisor');
 
 gulp.task('jsx', function () {
-    return browserify(['./src/app.jsx'],
+    return browserify(['./src/jsx/teamViewList.jsx'],
             {
                 extensions: ['.jsx'],
                 debug: true,

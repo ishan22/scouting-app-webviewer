@@ -2,9 +2,10 @@ import {EventEmitter} from 'events';
 import assign from 'object-assign';
 import { Table } from 'react-bootstrap';
 import TeamView from 'teamView';
-import { Link } from 'react-router';
+import { Router, Route, Link } from 'react-router';
 
 var React = require('react');
+var ReactDOM = require('react-dom');
 var Firebase = require('firebase');
 
 var firebaseRef = new Firebase("https://teamdata.firebaseio.com/teams/");
@@ -13,8 +14,8 @@ var ListComponent = React.createClass({
 
   render: function() {
     var createItem = function(item) {
-      return <tr Link to={`/team/${item.number}`} key={item.nick}>
-        <td>{item.nick}</td>
+      return <tr key={item.nick}>
+        <td><Link to={`/team/${item.number}`}>{item.nick}</Link></td>
         <td>{item.number}</td>
       </tr>
     };
@@ -65,4 +66,9 @@ var TeamList = React.createClass({
 
 });
 
-module.exports = TeamList;
+ReactDOM.render(
+    <Router>
+      <Route path="*" component={TeamList} />
+      <Route path="team/:id" component={TeamView} />
+    </Router>,
+  document.getElementById('app'));

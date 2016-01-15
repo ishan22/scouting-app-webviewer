@@ -2,16 +2,13 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 
 import { TeamView } from 'teamView';
-import { TeamList } from 'teamViewList';
+import { TeamsList, ListComponent } from 'teamViewList';
 import { Router, Route } from 'react-router';
 
 ReactDOM.render(
-  <div>
     <Router>
-      <Route path="/" component={TeamList} >
-        <Route path="team/115" component={TeamView} />
-      </Route>
-    </Router>
-  </div>,
+      <Route path="/#" component={TeamsList} />
+      <Route path="team/:id" component={TeamsList} />
+    </Router>,
   document.getElementById('app')
 );
