@@ -68,7 +68,7 @@ var TeamList = React.createClass({
 
 ReactDOM.render(
     <Router>
-      <Route path="*" component={TeamList} />
+      <Route path="/" component={TeamList} />
       <Route path="team/:id" component={TeamView} />
     </Router>,
   document.getElementById('app'));
