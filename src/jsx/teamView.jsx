@@ -5,7 +5,7 @@ var Firebase = require("firebase");
 
 var firebaseRef = new Firebase("https://teamdata.firebaseio.com/");
 var teambase;
-var matchbase;
+var matchbase = firebaseRef.child("/matches");
 
 module.exports = React.createClass({
 
@@ -27,15 +27,14 @@ module.exports = React.createClass({
         <h5>{this.state.name}</h5>
         <h5>{this.state.nick}</h5>
         <h5>{this.state.number}</h5>
-        <h5>{this.state.website}</h5>
+        <h5><a href={this.state.website}>{this.state.website}</a></h5>
       </div>
     );
   },
 
   componentDidMount(){
       teambase = firebaseRef.child(`teams/frc${this.props.params.id}`);
-      matchbase = firebaseRef.child(`/matches`);
-      matchbase.orderByChild("team").equalTo(this.props.params.id).once("value", function(dataSnapshot){
+      matchbase.orderByChild("team").equalTo(parseInt(this.props.params.id)).on("child_added", function(dataSnapshot){
           console.log(dataSnapshot.val());
       });
       teambase.on("value", function(dataSnapshot) {
@@ -49,7 +48,4 @@ module.exports = React.createClass({
         });
       }.bind(this));
   }
-
-
-
 });

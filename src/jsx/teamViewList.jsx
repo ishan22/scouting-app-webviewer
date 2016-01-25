@@ -1,6 +1,6 @@
 import {EventEmitter} from 'events';
 import assign from 'object-assign';
-import { Table } from 'react-bootstrap';
+import { Table, Button } from 'react-bootstrap';
 import TeamView from 'teamView';
 import { Router, Route, Link } from 'react-router';
 
@@ -15,8 +15,9 @@ var ListComponent = React.createClass({
   render: function() {
     var createItem = function(item) {
       return <tr key={item.nick}>
-        <td><Link to={`/team/${item.number}`}>{item.nick}</Link></td>
+        <td>{item.nick}</td>
         <td>{item.number}</td>
+        <td><Link to={`/team/${item.number}`}><Button bsStyle="info">View Team</Button></Link></td>
       </tr>
     };
     return <tbody>{this.props.items.map(createItem)}</tbody>;
@@ -43,6 +44,7 @@ var TeamList = React.createClass({
               <tr>
                 <th>Team Name</th>
                 <th>Team #</th>
+                <th></th>
               </tr>
             </thead>
             <ListComponent items={this.state.items} />
@@ -58,10 +60,6 @@ var TeamList = React.createClass({
         items: this.state.items
       });
     }.bind(this));
-  },
-
-  componentWillUnmount: function() {
-    this.firebaseRef.off();
   }
 
 });
